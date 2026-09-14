@@ -8,9 +8,9 @@
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://jdetecnologia.com.br/">
-<link rel="icon" href="favicon-transparente.svg" type="image/svg+xml">
-<link rel="icon" href="icone-transp-32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="icone-transp-192.png" sizes="192x192" type="image/png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 <meta property="og:type" content="website">
@@ -172,36 +172,26 @@ section{padding:84px 0}
 
 .modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:100;background:rgba(15,23,42,.5);backdrop-filter:blur(4px)}
 .modal.aberto{display:flex;align-items:center;justify-content:center}
-.modal-conteudo{
-  background:var(--fundo);border-radius:12px;border:1px solid var(--linha);
-  padding:48px 32px;width:90%;max-width:420px;position:relative;
-  box-shadow:0 20px 25px -5px rgba(0,0,0,.1)
-}
+.modal-conteudo{background:var(--fundo);border-radius:12px;border:1px solid var(--linha);padding:48px 32px;width:90%;max-width:420px;position:relative;box-shadow:0 20px 25px -5px rgba(0,0,0,.1)}
 .modal-titulo{font-family:Syne,sans-serif;font-size:28px;font-weight:700;margin-bottom:12px;color:var(--titulo)}
 .modal-desc{font-size:15px;color:var(--texto);margin-bottom:32px;line-height:1.6}
-.modal-fechar{
-  position:absolute;top:16px;right:16px;width:32px;height:32px;
-  border:none;background:transparent;cursor:pointer;color:var(--texto);font-size:20px;
-  display:flex;align-items:center;justify-content:center;transition:color .2s
-}
+.modal-fechar{position:absolute;top:16px;right:16px;width:32px;height:32px;border:none;background:transparent;cursor:pointer;color:var(--texto);font-size:20px;display:flex;align-items:center;justify-content:center;transition:color .2s}
 .modal-fechar:hover{color:var(--azul)}
 .form-grupo{margin-bottom:16px}
 .form-label{display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--titulo)}
-input[type="text"],input[type="email"],textarea{
-  width:100%;padding:10px 12px;border:1px solid var(--linha);border-radius:6px;
-  font-family:DM Mono,monospace;font-size:14px;background:var(--fundo);color:var(--titulo);
-  transition:border-color .2s;
-}
-input[type="text"]:focus,input[type="email"]:focus,textarea:focus{
-  outline:none;border-color:var(--azul);box-shadow:0 0 0 3px rgba(59,130,246,.1)
-}
+input[type="text"],input[type="email"],textarea{width:100%;padding:10px 12px;border:1px solid var(--linha);border-radius:6px;font-family:DM Mono,monospace;font-size:14px;background:var(--fundo);color:var(--titulo);transition:border-color .2s}
+input[type="text"]:focus,input[type="email"]:focus,textarea:focus{outline:none;border-color:var(--azul);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
 textarea{resize:vertical;min-height:100px}
 .form-aviso{font-size:12px;color:var(--texto);margin-bottom:20px;line-height:1.5}
 html[data-tema="dark"] .modal{background:rgba(11,18,32,.7)}
-@media(max-width:520px){
-  .modal-conteudo{width:95%;padding:36px 20px}
-  .modal-titulo{font-size:22px}
-}
+
+.form-sucesso{display:none;text-align:center;padding:32px 24px;color:var(--titulo)}
+.form-sucesso.ativo{display:block}
+.form-sucesso-icon{font-size:48px;margin-bottom:16px}
+.form-sucesso-titulo{font-family:Syne,sans-serif;font-size:20px;font-weight:700;margin-bottom:8px}
+.form-sucesso-desc{font-size:14px;color:var(--texto);margin-bottom:24px}
+
+@media(max-width:520px){.modal-conteudo{width:95%;padding:36px 20px}.modal-titulo{font-size:22px}}
 
 .social{
   background:transparent;border:1px solid var(--linha);border-radius:6px;
@@ -265,7 +255,6 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
     "streetAddress": "Londrina",
     "addressLocality": "Londrina",
     "addressRegion": "PR",
-    "postalCode": "",
     "addressCountry": "BR"
   },
   "areaServed": "BR",
@@ -273,8 +262,7 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
     "https://instagram.com/jdetecnologia"
   ],
   "priceRange": "$$",
-  "knowsLanguage": ["pt-BR"],
-  "foundingDate": "2024"
+  "knowsLanguage": ["pt-BR"]
 }
 </script>
 </head>
@@ -307,7 +295,7 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
       <a class="social" href="https://instagram.com/jdetecnologia" target="_blank" rel="noopener" aria-label="Instagram @jdetecnologia">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2M7 12c0 2.8 2.2 5 5 5s5-2.2 5-5-2.2-5-5-5-5 2.2-5 5m11-6.5c0 .8.7 1.5 1.5 1.5S21 6.3 21 5.5 20.3 4 19.5 4 18 4.7 18 5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <a class="btn" href="mailto:contato@jdetecnologia.com.br">Contato</a>
+      <button class="btn" onclick="abrirFormularioLimpo()" type="button" style="border:none;background:var(--btn-bg);color:var(--btn-fg);cursor:pointer;">Contato</button>
     </div>
   </div>
 </header>
@@ -444,6 +432,41 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
 
 </div>
 
+<div id="modal-contato" class="modal">
+  <div class="modal-conteudo">
+    <button class="modal-fechar" onclick="document.getElementById('modal-contato').classList.remove('aberto')" aria-label="Fechar formulário">✕</button>
+    <h2 class="modal-titulo">Vamos conversar</h2>
+    <p class="modal-desc">Conte um pouco sobre o projeto e entraremos em contato em breve.</p>
+      <div class="form-sucesso">
+        <div class="form-sucesso-icon">✓</div>
+        <h3 class="form-sucesso-titulo">Mensagem enviada!</h3>
+        <p class="form-sucesso-desc">Obrigado por entrar em contato. Retornaremos em breve.</p>
+      </div>
+
+    <form id="formulario-contato" method="POST" action="https://formspree.io/f/mgaegnbo">
+      <div class="form-grupo">
+        <label class="form-label" for="nome">Seu nome</label>
+        <input type="text" id="nome" name="nome" required placeholder="João Silva">
+      </div>
+      <div class="form-grupo">
+        <label class="form-label" for="email">E-mail</label>
+        <input type="email" id="email" name="email" required placeholder="joao@empresa.com">
+      </div>
+      <div class="form-grupo">
+        <label class="form-label" for="empresa">Empresa</label>
+        <input type="text" id="empresa" name="empresa" placeholder="Nome da sua empresa">
+      </div>
+      <div class="form-grupo">
+        <label class="form-label" for="mensagem">Mensagem</label>
+        <textarea id="mensagem" name="mensagem" required placeholder="O que está travando? Qual o desafio?"></textarea>
+      </div>
+      <p class="form-aviso">Seus dados são usados só para entrarmos em contato. Não compartilhamos com ninguém.</p>
+      <button type="submit" class="btn" style="width:100%">Enviar mensagem</button>
+    </form>
+  </div>
+</div>
+
+
 <script>
 document.getElementById('tema').addEventListener('click', function(){
   var raiz = document.documentElement;
@@ -451,6 +474,43 @@ document.getElementById('tema').addEventListener('click', function(){
   raiz.setAttribute('data-tema', novo);
   try{ localStorage.setItem('jde-tema', novo); }catch(e){}
 });
+function abrirFormulario(){document.getElementById('modal-contato').classList.add('aberto')}
+document.getElementById('modal-contato').addEventListener('click',function(e){if(e.target===this)this.classList.remove('aberto')})
+
+document.getElementById('formulario-contato').addEventListener('submit', function(e){
+  e.preventDefault();
+  var formData = new FormData(this);
+  fetch(this.action, {method: 'POST', body: formData, headers: {'Accept': 'application/json'}})
+  .then(response => {
+    if(response.ok){
+      document.getElementById('formulario-contato').style.display = 'none';
+      document.querySelector('.form-sucesso').classList.add('ativo');
+      setTimeout(function(){
+        document.getElementById('modal-contato').classList.remove('aberto');
+        document.getElementById('formulario-contato').style.display = 'block';
+        document.querySelector('.form-sucesso').classList.remove('ativo');
+        document.getElementById('formulario-contato').reset();
+      }, 2500);
+    }
+  })
+  .catch(error => console.error('Erro:', error));
+});
+document.getElementById('modal-contato').addEventListener('show', function(){
+  document.getElementById('formulario-contato').reset();
+  document.getElementById('nome').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('empresa').value = '';
+  document.getElementById('mensagem').value = '';
+});
+function abrirFormularioLimpo(){
+  document.getElementById('formulario-contato').reset();
+  document.getElementById('nome').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('empresa').value = '';
+  document.getElementById('mensagem').value = '';
+  document.getElementById('modal-contato').classList.add('aberto');
+}
+
 </script>
 
 </body>
