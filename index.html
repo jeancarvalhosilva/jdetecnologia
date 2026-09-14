@@ -34,6 +34,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GFCHZHEJ7S"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-GFCHZHEJ7S');
+</script>
 <script>
 (function(){
   var t;
@@ -162,6 +169,40 @@ section{padding:84px 0}
   background:var(--superficie);color:#94A3B8;border:1px solid var(--sombra-borda);
   border-radius:14px;padding:66px 48px;margin:0 0 96px;text-align:center;
 }
+
+.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:100;background:rgba(15,23,42,.5);backdrop-filter:blur(4px)}
+.modal.aberto{display:flex;align-items:center;justify-content:center}
+.modal-conteudo{
+  background:var(--fundo);border-radius:12px;border:1px solid var(--linha);
+  padding:48px 32px;width:90%;max-width:420px;position:relative;
+  box-shadow:0 20px 25px -5px rgba(0,0,0,.1)
+}
+.modal-titulo{font-family:Syne,sans-serif;font-size:28px;font-weight:700;margin-bottom:12px;color:var(--titulo)}
+.modal-desc{font-size:15px;color:var(--texto);margin-bottom:32px;line-height:1.6}
+.modal-fechar{
+  position:absolute;top:16px;right:16px;width:32px;height:32px;
+  border:none;background:transparent;cursor:pointer;color:var(--texto);font-size:20px;
+  display:flex;align-items:center;justify-content:center;transition:color .2s
+}
+.modal-fechar:hover{color:var(--azul)}
+.form-grupo{margin-bottom:16px}
+.form-label{display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--titulo)}
+input[type="text"],input[type="email"],textarea{
+  width:100%;padding:10px 12px;border:1px solid var(--linha);border-radius:6px;
+  font-family:DM Mono,monospace;font-size:14px;background:var(--fundo);color:var(--titulo);
+  transition:border-color .2s;
+}
+input[type="text"]:focus,input[type="email"]:focus,textarea:focus{
+  outline:none;border-color:var(--azul);box-shadow:0 0 0 3px rgba(59,130,246,.1)
+}
+textarea{resize:vertical;min-height:100px}
+.form-aviso{font-size:12px;color:var(--texto);margin-bottom:20px;line-height:1.5}
+html[data-tema="dark"] .modal{background:rgba(11,18,32,.7)}
+@media(max-width:520px){
+  .modal-conteudo{width:95%;padding:36px 20px}
+  .modal-titulo{font-size:22px}
+}
+
 .social{
   background:transparent;border:1px solid var(--linha);border-radius:6px;
   width:38px;height:38px;display:grid;place-items:center;cursor:pointer;color:var(--texto);
@@ -208,6 +249,34 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
   .acoes{gap:8px}
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "JDE Tecnologia",
+  "description": "Consultoria em desenvolvimento e integração de sistemas em ambiente Oracle",
+  "url": "https://jdetecnologia.com.br",
+  "logo": "https://jdetecnologia.com.br/jde-logo-horizontal.png",
+  "image": "https://jdetecnologia.com.br/og-image.png",
+  "telephone": "+55 11 98131-3834",
+  "email": "contato@jdetecnologia.com.br",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Londrina",
+    "addressLocality": "Londrina",
+    "addressRegion": "PR",
+    "postalCode": "",
+    "addressCountry": "BR"
+  },
+  "areaServed": "BR",
+  "sameAs": [
+    "https://instagram.com/jdetecnologia"
+  ],
+  "priceRange": "$$",
+  "knowsLanguage": ["pt-BR"],
+  "foundingDate": "2024"
+}
+</script>
 </head>
 <body>
 <div class="pagina">
