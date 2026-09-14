@@ -205,8 +205,10 @@ html[data-tema="dark"] .modal{background:rgba(11,18,32,.7)}
 .social svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .fechamento h2{color:#FFFFFF;font-size:clamp(27px,3.4vw,38px);font-weight:700;max-width:20ch;margin:0 auto 20px}
 .fechamento p{max-width:44ch;margin:0 auto}
-.fechamento .btn{background:#FFFFFF;color:#0F172A;border-color:#FFFFFF}
-.fechamento .btn:hover{background:#60A5FA;border-color:#60A5FA;color:#0F172A}
+.fechamento .btn{background:#3B82F6;color:#FFFFFF;border-color:#3B82F6}
+.fechamento .btn:hover{background:#60A5FA;border-color:#60A5FA;color:#FFFFFF}
+html[data-tema="dark"] .fechamento .btn{background:#60A5FA;color:#0F172A;border-color:#60A5FA}
+html[data-tema="dark"] .fechamento .btn:hover{background:#93C5FD;border-color:#93C5FD;color:#0F172A}
 
 footer{border-top:1px solid var(--linha);padding:44px 0 56px}
 .rodape{display:flex;flex-direction:column;align-items:center;gap:8px;justify-content:center;font-size:13px;text-align:center}
@@ -421,7 +423,7 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
   <div class="fechamento">
     <h2>Conte o que está travando</h2>
     <p>Uma conversa curta costuma ser suficiente para saber se dá para ajudar e por onde começar.</p>
-    <button class="btn" onclick="abrirFormularioLimpo()" type="button" style="border:none;background:var(--btn-bg);color:var(--btn-fg);cursor:pointer;margin-top:24px;margin-bottom:0">Enviar mensagem</button>
+    <button class="btn" onclick="abrirFormularioLimpo()" type="button" style="border:none;cursor:pointer;margin-top:24px;margin-bottom:0">Enviar mensagem</button>
   </div>
 </div>
 
