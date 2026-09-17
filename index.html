@@ -265,6 +265,7 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
 
 
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
 (function(){
   let t = localStorage.getItem('jde-tema');
@@ -312,6 +313,15 @@ function validarFormulario() {
   return true;
 }
 
+function validarRecaptcha() {
+  const token = grecaptcha.getResponse();
+  if(!token) {
+    alert('Marque a caixa "Não sou um robô" para continuar');
+    return false;
+  }
+  return true;
+}
+
 function abrirFormularioLimpo(){
   document.getElementById('formulario-contato').reset();
   document.getElementById('nome').value = '';
@@ -319,21 +329,29 @@ function abrirFormularioLimpo(){
   document.getElementById('empresa').value = '';
   document.getElementById('mensagem').value = '';
   document.getElementById('modal-contato').classList.add('aberto');
+  grecaptcha.reset();
 }
 
 document.getElementById('formulario-contato').addEventListener('submit', function(e){
   e.preventDefault();
   
+  // Validar formulário
   if(!validarFormulario()) return;
   
-  console.log('Enviando para:', this.action);
+  // Validar reCAPTCHA
+  if(!validarRecaptcha()) return;
+  
+  console.log('✓ Enviando para Formspree...');
   var formData = new FormData(this);
+  
+  // Adicionar token do reCAPTCHA
+  formData.append('g-recaptcha-response', grecaptcha.getResponse());
   
   fetch(this.action, {method: 'POST', body: formData})
     .then(r => {
-      console.log('Resposta:', r.status, r.statusText);
+      console.log('Resposta:', r.status);
       if(r.ok) {
-        console.log('Sucesso! Mensagem enviada.');
+        console.log('✓ Sucesso!');
         document.getElementById('formulario-contato').style.display = 'none';
         document.querySelector('.form-sucesso').classList.add('ativo');
         setTimeout(() => {
@@ -341,15 +359,18 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
           document.getElementById('formulario-contato').style.display = 'block';
           document.querySelector('.form-sucesso').classList.remove('ativo');
           document.getElementById('formulario-contato').reset();
+          grecaptcha.reset();
         }, 2500);
       } else {
         console.error('Erro:', r.status);
-        alert('Erro ao enviar: ' + r.status);
+        alert('Erro ao enviar. Tente novamente.');
+        grecaptcha.reset();
       }
     })
     .catch(e => {
-      console.error('Erro de conexão:', e);
+      console.error('Erro:', e);
       alert('Erro de conexão');
+      grecaptcha.reset();
     });
 });
 </script></head>
@@ -548,8 +569,8 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
         <textarea id="mensagem" name="mensagem" required placeholder="O que está travando? Qual o desafio?"></textarea>
       </div>
       <p class="form-aviso">Seus dados são usados só para entrarmos em contato. Não compartilhamos com ninguém.</p>
-            <div style="margin-bottom:20px;display:flex;justify-content:center">
-        
+      <div style="margin-bottom:20px;display:flex;justify-content:center">
+        <div class="g-recaptcha" data-sitekey="6LdNx8AtAAAAAG1-N4I0ctuCMh6kfOSpkbX4bBoj"></div>
       </div>
 <button type="submit" class="btn" style="width:100%">Enviar mensagem</button>
     </form>
