@@ -335,24 +335,7 @@ function validarFormulario() {
   return true;
 }
 
-// Rate limiting
-const formSubmitTimes = [];
-const MAX_SUBMITS_PER_MINUTE = 5;
-const MINUTE_IN_MS = 60000;
-
-function verificarRateLimit() {
-  const now = Date.now();
-  formSubmitTimes.length = formSubmitTimes.filter(time => now - time < MINUTE_IN_MS).length;
-  
-  const filtered = formSubmitTimes.filter(time => now - time < MINUTE_IN_MS);
-  if(filtered.length >= MAX_SUBMITS_PER_MINUTE) {
-    alert('Limite de envios atingido. Aguarde 1 minuto.');
-    return false;
-  }
-  
-  formSubmitTimes.push(now);
-  return true;
-}
+// Rate limiting desativado
 </script>
 </head>
 <body>
@@ -575,7 +558,6 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
   // Validações de segurança
   if(!validarRecaptcha()) return;
   if(!validarFormulario()) return;
-  if(!verificarRateLimit()) return;
   
   var formData = new FormData(this);
   fetch(this.action, {method: 'POST', body: formData, headers: {'Accept': 'application/json'}})
