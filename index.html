@@ -341,6 +341,15 @@ function validarFormulario() {
   return true;
 }
 
+function abrirFormularioLimpo(){
+  document.getElementById('formulario-contato').reset();
+  document.getElementById('nome').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('empresa').value = '';
+  document.getElementById('mensagem').value = '';
+  document.getElementById('modal-contato').classList.add('aberto');
+}
+
 // Rate limiting desativado
 </script>
 </head>
@@ -560,14 +569,6 @@ document.getElementById('tema').addEventListener('click', function(){
 
 
 });
-function abrirFormularioLimpo(){
-  document.getElementById('formulario-contato').reset();
-  document.getElementById('nome').value = '';
-  document.getElementById('email').value = '';
-  document.getElementById('empresa').value = '';
-  document.getElementById('mensagem').value = '';
-  document.getElementById('modal-contato').classList.add('aberto');
-}
 
 
 document.getElementById('formulario-contato').addEventListener('submit', function(e){
