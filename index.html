@@ -276,33 +276,12 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
   "knowsLanguage": ["pt-BR"]
 }
 </script>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 
 <script>
 // Validação de entrada - Segurança contra XSS e injeção
 
 // Validar se reCAPTCHA foi preenchido
-function validarRecaptcha() {
-  const recaptchaResponse = document.querySelector('[name="g-recaptcha-response"]');
-  console.log('✓ Validando reCAPTCHA...');
-  console.log('Elemento:', recaptchaResponse);
-  console.log('Valor:', recaptchaResponse?.value);
-  
-  if(!recaptchaResponse) {
-    console.error('✗ reCAPTCHA não encontrado');
-    alert('reCAPTCHA não carregou. Recarregue a página.');
-    return false;
-  }
-  
-  if(!recaptchaResponse.value || recaptchaResponse.value.trim() === '') {
-    console.error('✗ reCAPTCHA não foi marcado');
-    alert('Marque a caixa "Não sou um robô" para continuar');
-    return false;
-  }
-  
-  console.log('✓ reCAPTCHA validado!');
-  return true;
-}
 
 function validarFormulario() {
   console.log('✓ Validando formulário...');
@@ -542,10 +521,9 @@ function validarFormulario() {
       </div>
       <p class="form-aviso">Seus dados são usados só para entrarmos em contato. Não compartilhamos com ninguém.</p>
             <div style="margin-bottom:20px;display:flex;justify-content:center">
-        <div class="g-recaptcha" data-sitekey="6LdNx8AtAAAAAG1-N4I0ctuCMh6kfOSpkbX4bBoj" data-callback="onRecaptchaSuccess"></div>
+        
       </div>
-<input type="hidden" name="g-recaptcha-response">
-      <button type="submit" class="btn" style="width:100%" disabled>Enviar mensagem</button>
+<button type="submit" class="btn" style="width:100%">Enviar mensagem</button>
     </form>
   </div>
 </div>
@@ -556,18 +534,12 @@ document.getElementById('tema').addEventListener('click', function(){
   var raiz = document.documentElement;
   var novo = raiz.getAttribute('data-tema') === 'dark' ? 'light' : 'dark';
   raiz.setAttribute('data-tema', novo);
-  try{ localStorage.setItem('jde-tema', novo); }catch(e){}
-});
+  try{ localStorage.setItem('jde-tema', novo); }catch(e){});
 // Removido: modal agora não fecha ao clicar no fundo (backdrop)
 
 
 });
 
-function onRecaptchaSuccess() {
-  console.log('✓ reCAPTCHA marcado!');
-  // Habilitar botão
-  document.querySelector('button[type="submit"]').disabled = false;
-}
 
 function abrirFormularioLimpo(){
   document.getElementById('formulario-contato').reset();
@@ -576,26 +548,17 @@ function abrirFormularioLimpo(){
   document.getElementById('empresa').value = '';
   document.getElementById('mensagem').value = '';
   document.getElementById('modal-contato').classList.add('aberto');
-  grecaptcha.reset();
-  document.querySelector('button[type="submit"]').disabled = true;
 }
 
 document.getElementById('formulario-contato').addEventListener('submit', function(e){
   e.preventDefault();
-  console.log('📋 Validando formulário...');
   
-  if(!validarFormulario()) {
-    console.error('❌ Validação falhou');
-    return;
-  }
-  
-  console.log('✓ Enviando para Formspree...');
+  if(!validarFormulario()) return;
   
   var formData = new FormData(this);
   fetch(this.action, {method: 'POST', body: formData})
   .then(r => {
-    console.log('Resposta:', r.status);
-    if(r.ok || r.status === 200) {
+    if(r.ok) {
       document.getElementById('formulario-contato').style.display = 'none';
       document.querySelector('.form-sucesso').classList.add('ativo');
       setTimeout(() => {
@@ -603,17 +566,12 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
         document.getElementById('formulario-contato').style.display = 'block';
         document.querySelector('.form-sucesso').classList.remove('ativo');
         document.getElementById('formulario-contato').reset();
-        grecaptcha.reset();
-        document.querySelector('button[type="submit"]').disabled = true;
       }, 2500);
     } else {
       alert('Erro ao enviar: ' + r.status);
     }
   })
-  .catch(e => {
-    console.error('Erro:', e);
-    alert('Erro de conexão');
-  });
+  .catch(e => alert('Erro de conexão'));
 });
 
 </script>
