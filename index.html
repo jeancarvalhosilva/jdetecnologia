@@ -329,10 +329,14 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
   console.log('Enviando para:', this.action);
   var formData = new FormData(this);
   
-  fetch(this.action, {method: 'POST', body: formData})
+  fetch(this.action, {
+    method: 'POST', 
+    body: formData,
+    headers: {'Accept': 'application/json'}
+  })
     .then(r => {
       console.log('Resposta:', r.status, r.statusText);
-      if(r.ok) {
+      if(r.ok || r.status === 200) {
         console.log('Sucesso! Mensagem enviada.');
         document.getElementById('formulario-contato').style.display = 'none';
         document.querySelector('.form-sucesso').classList.add('ativo');
