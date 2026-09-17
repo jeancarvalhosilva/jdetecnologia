@@ -341,14 +341,7 @@ function validarFormulario() {
   return true;
 }
 
-function abrirFormularioLimpo(){
-  document.getElementById('formulario-contato').reset();
-  document.getElementById('nome').value = '';
-  document.getElementById('email').value = '';
-  document.getElementById('empresa').value = '';
-  document.getElementById('mensagem').value = '';
-  document.getElementById('modal-contato').classList.add('aberto');
-}
+
 
 // Rate limiting desativado
 </script>
@@ -549,10 +542,10 @@ function abrirFormularioLimpo(){
       </div>
       <p class="form-aviso">Seus dados são usados só para entrarmos em contato. Não compartilhamos com ninguém.</p>
             <div style="margin-bottom:20px;display:flex;justify-content:center">
-        <div class="g-recaptcha" data-sitekey="6LdNx8AtAAAAAG1-N4I0ctuCMh6kfOSpkbX4bBoj"></div>
+        <div class="g-recaptcha" data-sitekey="6LdNx8AtAAAAAG1-N4I0ctuCMh6kfOSpkbX4bBoj" data-callback="onRecaptchaSuccess"></div>
       </div>
 <input type="hidden" name="g-recaptcha-response">
-      <button type="submit" class="btn" style="width:100%">Enviar mensagem</button>
+      <button type="submit" class="btn" style="width:100%" disabled>Enviar mensagem</button>
     </form>
   </div>
 </div>
@@ -570,28 +563,39 @@ document.getElementById('tema').addEventListener('click', function(){
 
 });
 
+function onRecaptchaSuccess() {
+  console.log('✓ reCAPTCHA marcado!');
+  // Habilitar botão
+  document.querySelector('button[type="submit"]').disabled = false;
+}
+
+function abrirFormularioLimpo(){
+  document.getElementById('formulario-contato').reset();
+  document.getElementById('nome').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('empresa').value = '';
+  document.getElementById('mensagem').value = '';
+  document.getElementById('modal-contato').classList.add('aberto');
+  grecaptcha.reset();
+  document.querySelector('button[type="submit"]').disabled = true;
+}
 
 document.getElementById('formulario-contato').addEventListener('submit', function(e){
   e.preventDefault();
+  console.log('📋 Validando formulário...');
   
-  // Validação simples
-  if(!validarFormulario()) return;
-  
-  // Obter token reCAPTCHA
-  var recaptchaToken = grecaptcha.getResponse();
-  if(!recaptchaToken) {
-    alert('Marque o reCAPTCHA');
+  if(!validarFormulario()) {
+    console.error('❌ Validação falhou');
     return;
   }
   
-  // Preencher token no campo hidden
-  document.querySelector('[name="g-recaptcha-response"]').value = recaptchaToken;
+  console.log('✓ Enviando para Formspree...');
   
-  // Enviar
   var formData = new FormData(this);
   fetch(this.action, {method: 'POST', body: formData})
   .then(r => {
-    if(r.ok) {
+    console.log('Resposta:', r.status);
+    if(r.ok || r.status === 200) {
       document.getElementById('formulario-contato').style.display = 'none';
       document.querySelector('.form-sucesso').classList.add('ativo');
       setTimeout(() => {
@@ -600,11 +604,18 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
         document.querySelector('.form-sucesso').classList.remove('ativo');
         document.getElementById('formulario-contato').reset();
         grecaptcha.reset();
+        document.querySelector('button[type="submit"]').disabled = true;
       }, 2500);
+    } else {
+      alert('Erro ao enviar: ' + r.status);
     }
   })
-  .catch(e => alert('Erro ao enviar'));
+  .catch(e => {
+    console.error('Erro:', e);
+    alert('Erro de conexão');
+  });
 });
+
 </script>
 
 </body>
