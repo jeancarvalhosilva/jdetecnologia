@@ -332,12 +332,13 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
   fetch(this.action, {
     method: 'POST', 
     body: formData,
-    headers: {'Accept': 'application/json'}
+    redirect: 'manual'
   })
     .then(r => {
-      console.log('Resposta:', r.status, r.statusText);
-      if(r.ok || r.status === 200) {
-        console.log('Sucesso! Mensagem enviada.');
+      console.log('Resposta:', r.status, r.statusText, r.type);
+      // Formspree retorna 302 redirect (sucesso)
+      if(r.status === 302 || r.ok) {
+        console.log('✓ Sucesso! Mensagem enviada.');
         document.getElementById('formulario-contato').style.display = 'none';
         document.querySelector('.form-sucesso').classList.add('ativo');
         setTimeout(() => {
