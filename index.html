@@ -280,6 +280,26 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
 
 <script>
 // Validação de entrada - Segurança contra XSS e injeção
+
+// Validar se reCAPTCHA foi preenchido
+function validarRecaptcha() {
+  const recaptchaResponse = document.querySelector('[name="g-recaptcha-response"]');
+  
+  // Se o elemento não existe, talvez o reCAPTCHA não tenha carregado
+  if(!recaptchaResponse) {
+    alert('reCAPTCHA não carregou. Recarregue a página.');
+    return false;
+  }
+  
+  // Se está vazio, o usuário não marcou
+  if(!recaptchaResponse.value || recaptchaResponse.value.trim() === '') {
+    alert('Marque a caixa "Não sou um robô" para continuar');
+    return false;
+  }
+  
+  return true;
+}
+
 function validarFormulario() {
   const nome = document.getElementById('nome').value.trim();
   const email = document.getElementById('email').value.trim();
@@ -533,7 +553,8 @@ function verificarRateLimit() {
             <div style="margin-bottom:20px;display:flex;justify-content:center">
         <div class="g-recaptcha" data-sitekey="6LdNx8AtAAAAAG1-N4I0ctuCMh6kfOSpkbX4bBoj"></div>
       </div>
-<button type="submit" class="btn" style="width:100%">Enviar mensagem</button>
+<input type="hidden" name="g-recaptcha-response">
+      <button type="submit" class="btn" style="width:100%">Enviar mensagem</button>
     </form>
   </div>
 </div>
@@ -552,6 +573,7 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
   e.preventDefault();
   
   // Validações de segurança
+  if(!validarRecaptcha()) return;
   if(!validarFormulario()) return;
   if(!verificarRateLimit()) return;
   
