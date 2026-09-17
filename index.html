@@ -563,20 +563,30 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
   console.log('📋 Form submit iniciado');
   
   // Validações de segurança
-  if(!validarRecaptcha()) {
-    console.error('❌ Bloqueado por reCAPTCHA');
-    return;
-  }
   if(!validarFormulario()) {
     console.error('❌ Bloqueado por validação de formulário');
     return;
   }
-  console.log('✓ Todas as validações passaram!');
+  console.log('✓ Validações passaram!');
   
+  // Obter token do reCAPTCHA
+  var recaptchaToken = grecaptcha.getResponse();
+  console.log('Token reCAPTCHA:', recaptchaToken ? '✓ Obtido' : '❌ Vazio');
+  
+  if(!recaptchaToken) {
+    alert('Marque a caixa "Não sou um robô" para continuar');
+    return;
+  }
+  
+  console.log('✓ Enviando para Formspree...');
   var formData = new FormData(this);
+  formData.append('g-recaptcha-response', recaptchaToken);
+  
   fetch(this.action, {method: 'POST', body: formData, headers: {'Accept': 'application/json'}})
   .then(response => {
+    console.log('Resposta Formspree:', response.status);
     if(response.ok){
+      console.log('✓ Enviado com sucesso!');
       document.getElementById('formulario-contato').style.display = 'none';
       document.querySelector('.form-sucesso').classList.add('ativo');
       setTimeout(function(){
@@ -584,10 +594,17 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
         document.getElementById('formulario-contato').style.display = 'block';
         document.querySelector('.form-sucesso').classList.remove('ativo');
         document.getElementById('formulario-contato').reset();
+        grecaptcha.reset();
       }, 2500);
+    } else {
+      console.error('✗ Erro na resposta:', response.status);
+      alert('Erro ao enviar. Tente novamente.');
     }
   })
-  .catch(error => console.error('Erro:', error));
+  .catch(error => {
+    console.error('Erro de conexão:', error);
+    alert('Erro ao enviar a mensagem.');
+  });
 });
 function abrirFormularioLimpo(){
   document.getElementById('formulario-contato').reset();
