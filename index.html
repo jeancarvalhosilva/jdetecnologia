@@ -284,33 +284,39 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
 // Validar se reCAPTCHA foi preenchido
 function validarRecaptcha() {
   const recaptchaResponse = document.querySelector('[name="g-recaptcha-response"]');
+  console.log('✓ Validando reCAPTCHA...');
+  console.log('Elemento:', recaptchaResponse);
+  console.log('Valor:', recaptchaResponse?.value);
   
-  // Se o elemento não existe, talvez o reCAPTCHA não tenha carregado
   if(!recaptchaResponse) {
+    console.error('✗ reCAPTCHA não encontrado');
     alert('reCAPTCHA não carregou. Recarregue a página.');
     return false;
   }
   
-  // Se está vazio, o usuário não marcou
   if(!recaptchaResponse.value || recaptchaResponse.value.trim() === '') {
+    console.error('✗ reCAPTCHA não foi marcado');
     alert('Marque a caixa "Não sou um robô" para continuar');
     return false;
   }
   
+  console.log('✓ reCAPTCHA validado!');
   return true;
 }
 
 function validarFormulario() {
+  console.log('✓ Validando formulário...');
   const nome = document.getElementById('nome').value.trim();
   const email = document.getElementById('email').value.trim();
   const empresa = document.getElementById('empresa').value.trim();
   const mensagem = document.getElementById('mensagem').value.trim();
   
-  // Validar se está vazio
   if(!nome || !email || !mensagem) {
+    console.error('✗ Campos obrigatórios vazios');
     alert('Preencha todos os campos obrigatórios');
     return false;
   }
+  console.log('✓ Campos preenchidos!');
   
   // Validar e-mail
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -554,10 +560,18 @@ document.getElementById('tema').addEventListener('click', function(){
 
 document.getElementById('formulario-contato').addEventListener('submit', function(e){
   e.preventDefault();
+  console.log('📋 Form submit iniciado');
   
   // Validações de segurança
-  if(!validarRecaptcha()) return;
-  if(!validarFormulario()) return;
+  if(!validarRecaptcha()) {
+    console.error('❌ Bloqueado por reCAPTCHA');
+    return;
+  }
+  if(!validarFormulario()) {
+    console.error('❌ Bloqueado por validação de formulário');
+    return;
+  }
+  console.log('✓ Todas as validações passaram!');
   
   var formData = new FormData(this);
   fetch(this.action, {method: 'POST', body: formData, headers: {'Accept': 'application/json'}})
