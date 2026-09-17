@@ -3,24 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>JDE Tecnologia  Consultoria em desenvolvimento e integração de sistemas</title>
-<meta name="description" content="Consultoria em desenvolvimento e integração de sistemas em ambiente Oracle. PL/SQL, APEX, ORDS e APIs REST.">
+<title>JDE Tecnologia | Consultoria em desenvolvimento e integração de sistemas</title>
+<meta name="description" content="Consultoria em desenvolvimento e integração de sistemas em ambiente Oracle. PL/SQL, APEX, ORDS e APIs REST. Londrina, PR.">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://jdetecnologia.com.br/">
 <link rel="icon" href="favicon-transparente.svg" type="image/svg+xml">
-<link rel="shortcut icon" href="icone-transp-32.png" type="image/png">
 <link rel="icon" href="icone-transp-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="icone-transp-192.png" sizes="192x192" type="image/png">
-<link rel="icon" href="icone-transp-512.png" sizes="512x512" type="image/png">
-<link rel="apple-touch-icon" href="icone-transp-192.png">
-<link rel="manifest" href="site.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="JDE Tecnologia">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:url" content="https://jdetecnologia.com.br/">
-<meta property="og:title" content="JDE Tecnologia  Consultoria em desenvolvimento e integração de sistemas">
+<meta property="og:title" content="JDE Tecnologia | Consultoria em desenvolvimento e integração de sistemas">
 <meta property="og:description" content="Seu sistema legado não precisa ser jogado fora. Integração, documentação e camadas de integrações entre sistemas.">
 <meta property="og:image" content="https://jdetecnologia.com.br/og-image.png">
 <meta property="og:image:secure_url" content="https://jdetecnologia.com.br/og-image.png">
@@ -38,8 +35,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFCHZHEJ7S"></script>
-
-
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-GFCHZHEJ7S');
+</script>
+<script>
+(function(){
+  var t;
+  try{ t = localStorage.getItem('jde-tema'); }catch(e){}
+  if(t !== 'dark' && t !== 'light'){
+    t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  document.documentElement.setAttribute('data-tema', t);
+})();
+</script>
 <style>
 :root{
   --fundo:#FFFFFF;
@@ -180,12 +191,6 @@ html[data-tema="dark"] .modal{background:rgba(11,18,32,.7)}
 .form-sucesso-titulo{font-family:Syne,sans-serif;font-size:20px;font-weight:700;margin-bottom:8px}
 .form-sucesso-desc{font-size:14px;color:var(--texto);margin-bottom:24px}
 
-
-
-
-.g-recaptcha{filter:brightness(0.9)}
-html[data-tema="dark"] .g-recaptcha{filter:brightness(1.1)}
-
 @media(max-width:520px){.modal-conteudo{width:95%;padding:36px 20px}.modal-titulo{font-size:22px}}
 
 .social{
@@ -197,13 +202,11 @@ html[data-tema="dark"] .g-recaptcha{filter:brightness(1.1)}
 .social svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .fechamento h2{color:#FFFFFF;font-size:clamp(27px,3.4vw,38px);font-weight:700;max-width:20ch;margin:0 auto 20px}
 .fechamento p{max-width:44ch;margin:0 auto}
-.fechamento .btn{background:#3B82F6;color:#FFFFFF;border-color:#3B82F6}
-.fechamento .btn:hover{background:#60A5FA;border-color:#60A5FA;color:#FFFFFF}
-html[data-tema="dark"] .fechamento .btn{background:#60A5FA;color:#0F172A;border-color:#60A5FA}
-html[data-tema="dark"] .fechamento .btn:hover{background:#93C5FD;border-color:#93C5FD;color:#0F172A}
+.fechamento .btn{background:#FFFFFF;color:#0F172A;border-color:#FFFFFF}
+.fechamento .btn:hover{background:#60A5FA;border-color:#60A5FA;color:#0F172A}
 
 footer{border-top:1px solid var(--linha);padding:44px 0 56px}
-.rodape{display:flex;flex-direction:column;align-items:center;gap:8px;justify-content:center;font-size:13px;text-align:center}
+.rodape{display:flex;flex-wrap:wrap;gap:10px 32px;justify-content:space-between;font-size:13px}
 .rodape a{text-decoration:none;border-bottom:1px solid var(--linha)}
 .rodape a:hover{border-color:var(--azul);color:var(--titulo)}
 
@@ -262,102 +265,7 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
   "knowsLanguage": ["pt-BR"]
 }
 </script>
-
-
-
-<script>
-(function(){
-  let t = localStorage.getItem('jde-tema');
-  if(t !== 'dark' && t !== 'light'){
-    t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-  document.documentElement.setAttribute('data-tema', t);
-})();
-
-document.getElementById('tema').addEventListener('click', function(){
-  var raiz = document.documentElement;
-  var novo = raiz.getAttribute('data-tema') === 'dark' ? 'light' : 'dark';
-  raiz.setAttribute('data-tema', novo);
-  try{ localStorage.setItem('jde-tema', novo); }catch(e){}
-});
-
-function validarFormulario() {
-  const nome = document.getElementById('nome').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const empresa = document.getElementById('empresa').value.trim();
-  const mensagem = document.getElementById('mensagem').value.trim();
-  
-  if(!nome || !email || !mensagem) {
-    alert('Preencha todos os campos obrigatórios');
-    return false;
-  }
-  
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if(!emailRegex.test(email)) {
-    alert('E-mail inválido');
-    return false;
-  }
-  
-  if(nome.length > 100 || empresa.length > 150 || mensagem.length > 2000) {
-    alert('Algum campo excedeu o tamanho máximo');
-    return false;
-  }
-  
-  const perigoso = /<script|javascript:|onerror=|onclick=|onload=|iframe/gi;
-  if(perigoso.test(nome) || perigoso.test(email) || perigoso.test(empresa) || perigoso.test(mensagem)) {
-    alert('Entrada contém caracteres não permitidos');
-    return false;
-  }
-  
-  return true;
-}
-
-function abrirFormularioLimpo(){
-  document.getElementById('formulario-contato').reset();
-  document.getElementById('nome').value = '';
-  document.getElementById('email').value = '';
-  document.getElementById('empresa').value = '';
-  document.getElementById('mensagem').value = '';
-  document.getElementById('modal-contato').classList.add('aberto');
-}
-
-document.getElementById('formulario-contato').addEventListener('submit', function(e){
-  e.preventDefault();
-  
-  if(!validarFormulario()) return;
-  
-  console.log('Enviando para:', this.action);
-  var formData = new FormData(this);
-  
-  fetch(this.action, {
-    method: 'POST', 
-    body: formData,
-    redirect: 'manual'
-  })
-    .then(r => {
-      console.log('Resposta:', r.status, r.statusText, r.type);
-      // Formspree retorna 302 redirect (sucesso)
-      if(r.status === 302 || r.ok) {
-        console.log('✓ Sucesso! Mensagem enviada.');
-        document.getElementById('formulario-contato').style.display = 'none';
-        document.querySelector('.form-sucesso').classList.add('ativo');
-        setTimeout(() => {
-          document.getElementById('modal-contato').classList.remove('aberto');
-          document.getElementById('formulario-contato').style.display = 'block';
-          document.querySelector('.form-sucesso').classList.remove('ativo');
-          document.getElementById('formulario-contato').reset();
-        }, 2500);
-      } else {
-        console.error('Erro:', r.status);
-        alert('Erro ao enviar: ' + r.status);
-      }
-    })
-    .catch(e => {
-      console.error('Erro de conexão:', e);
-      alert('Erro de conexão');
-    });
-});
-</script></head>
+</head>
 <body>
 <div class="pagina">
 
@@ -387,7 +295,7 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
       <a class="social" href="https://instagram.com/jdetecnologia" target="_blank" rel="noopener" aria-label="Instagram @jdetecnologia">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2M7 12c0 2.8 2.2 5 5 5s5-2.2 5-5-2.2-5-5-5-5 2.2-5 5m11-6.5c0 .8.7 1.5 1.5 1.5S21 6.3 21 5.5 20.3 4 19.5 4 18 4.7 18 5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <button class="btn" onclick="abrirFormularioLimpo()" type="button" style="border:none;background:var(--btn-bg);color:var(--btn-fg);cursor:pointer;">Contato</button>
+      <button class="btn" onclick="abrirFormulario()" type="button" style="border:none;background:var(--btn-bg);color:var(--btn-fg);cursor:pointer;">Contato</button>
     </div>
   </div>
 </header>
@@ -510,7 +418,6 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
   <div class="fechamento">
     <h2>Conte o que está travando</h2>
     <p>Uma conversa curta costuma ser suficiente para saber se dá para ajudar e por onde começar.</p>
-    <button class="btn" onclick="abrirFormularioLimpo()" type="button" style="border:none;cursor:pointer;margin-top:24px;margin-bottom:0">Enviar mensagem</button>
   </div>
 </div>
 
@@ -518,7 +425,8 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
 
 <footer>
   <div class="wrap rodape">
-    <span>JDE Tecnologia  Consultoria em desenvolvimento e integração de sistemas</span>
+    <span>JDE Tecnologia · CNPJ 39.344.629/0001-94</span>
+    <span>Londrina, PR</span>
   </div>
 </footer>
 
@@ -553,16 +461,42 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
         <textarea id="mensagem" name="mensagem" required placeholder="O que está travando? Qual o desafio?"></textarea>
       </div>
       <p class="form-aviso">Seus dados são usados só para entrarmos em contato. Não compartilhamos com ninguém.</p>
-            <div style="margin-bottom:20px;display:flex;justify-content:center">
-        
-      </div>
-<button type="submit" class="btn" style="width:100%">Enviar mensagem</button>
+      <button type="submit" class="btn" style="width:100%">Enviar mensagem</button>
     </form>
   </div>
 </div>
 
 
+<script>
+document.getElementById('tema').addEventListener('click', function(){
+  var raiz = document.documentElement;
+  var novo = raiz.getAttribute('data-tema') === 'dark' ? 'light' : 'dark';
+  raiz.setAttribute('data-tema', novo);
+  try{ localStorage.setItem('jde-tema', novo); }catch(e){}
+});
+function abrirFormulario(){document.getElementById('modal-contato').classList.add('aberto')}
+document.getElementById('modal-contato').addEventListener('click',function(e){if(e.target===this)this.classList.remove('aberto')})
 
+document.getElementById('formulario-contato').addEventListener('submit', function(e){
+  e.preventDefault();
+  var formData = new FormData(this);
+  fetch(this.action, {method: 'POST', body: formData, headers: {'Accept': 'application/json'}})
+  .then(response => {
+    if(response.ok){
+      document.getElementById('formulario-contato').style.display = 'none';
+      document.querySelector('.form-sucesso').classList.add('ativo');
+      setTimeout(function(){
+        document.getElementById('modal-contato').classList.remove('aberto');
+        document.getElementById('formulario-contato').style.display = 'block';
+        document.querySelector('.form-sucesso').classList.remove('ativo');
+        document.getElementById('formulario-contato').reset();
+      }, 2500);
+    }
+  })
+  .catch(error => console.error('Erro:', error));
+});
+
+</script>
 
 </body>
 </html>
