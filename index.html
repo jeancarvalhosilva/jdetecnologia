@@ -9,9 +9,11 @@
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://jdetecnologia.com.br/">
 <link rel="icon" href="favicon-transparente.svg" type="image/svg+xml">
+<link rel="shortcut icon" href="icone-transp-32.png" type="image/png">
 <link rel="icon" href="icone-transp-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="icone-transp-192.png" sizes="192x192" type="image/png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" href="icone-transp-192.png">
+<link rel="manifest" href="site.webmanifest">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="JDE Tecnologia">
@@ -204,6 +206,8 @@ html[data-tema="dark"] .modal{background:rgba(11,18,32,.7)}
 .fechamento p{max-width:44ch;margin:0 auto}
 .fechamento .btn{background:#FFFFFF;color:#0F172A;border-color:#FFFFFF}
 .fechamento .btn:hover{background:#60A5FA;border-color:#60A5FA;color:#0F172A}
+html[data-tema="dark"] .fechamento .btn{background:#60A5FA;color:#0F172A;border-color:#60A5FA}
+html[data-tema="dark"] .fechamento .btn:hover{background:#93C5FD;border-color:#93C5FD;color:#0F172A}
 
 footer{border-top:1px solid var(--linha);padding:44px 0 56px}
 .rodape{display:flex;flex-direction:column;align-items:center;gap:8px;justify-content:center;font-size:13px;text-align:center}
@@ -295,7 +299,7 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
       <a class="social" href="https://instagram.com/jdetecnologia" target="_blank" rel="noopener" aria-label="Instagram @jdetecnologia">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2M7 12c0 2.8 2.2 5 5 5s5-2.2 5-5-2.2-5-5-5-5 2.2-5 5m11-6.5c0 .8.7 1.5 1.5 1.5S21 6.3 21 5.5 20.3 4 19.5 4 18 4.7 18 5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <button class="btn" onclick="abrirFormulario()" type="button" style="border:none;background:var(--btn-bg);color:var(--btn-fg);cursor:pointer;">Contato</button>
+      <button class="btn" onclick="abrirFormularioLimpo()" type="button" style="border:none;background:var(--btn-bg);color:var(--btn-fg);cursor:pointer;">Contato</button>
     </div>
   </div>
 </header>
@@ -418,6 +422,7 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
   <div class="fechamento">
     <h2>Conte o que está travando</h2>
     <p>Uma conversa curta costuma ser suficiente para saber se dá para ajudar e por onde começar.</p>
+    <button class="btn" onclick="abrirFormularioLimpo()" type="button" style="border:none;cursor:pointer;margin-top:24px;margin-bottom:0">Enviar mensagem</button>
   </div>
 </div>
 
@@ -495,6 +500,14 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
   })
   .catch(error => console.error('Erro:', error));
 });
+function abrirFormularioLimpo(){
+  document.getElementById('formulario-contato').reset();
+  document.getElementById('nome').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('empresa').value = '';
+  document.getElementById('mensagem').value = '';
+  document.getElementById('modal-contato').classList.add('aberto');
+}
 
 </script>
 
