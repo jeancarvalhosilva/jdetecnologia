@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JDE Tecnologia · Consultoria em desenvolvimento e integração de sistemas</title>
-<meta name="description" content="Consultoria em desenvolvimento e integração de sistemas em ambiente Oracle. PL/SQL, APEX, ORDS e APIs REST. Londrina, PR.">
+<meta name="description" content="Consultoria em desenvolvimento e integração de sistemas em ambiente Oracle. PL/SQL, APEX, ORDS e APIs REST.">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://jdetecnologia.com.br/">
@@ -277,6 +277,63 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
 }
 </script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<script>
+// Validação de entrada - Segurança contra XSS e injeção
+function validarFormulario() {
+  const nome = document.getElementById('nome').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const empresa = document.getElementById('empresa').value.trim();
+  const mensagem = document.getElementById('mensagem').value.trim();
+  
+  // Validar se está vazio
+  if(!nome || !email || !mensagem) {
+    alert('Preencha todos os campos obrigatórios');
+    return false;
+  }
+  
+  // Validar e-mail
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!emailRegex.test(email)) {
+    alert('E-mail inválido');
+    return false;
+  }
+  
+  // Validar tamanho
+  if(nome.length > 100 || empresa.length > 150 || mensagem.length > 2000) {
+    alert('Algum campo excedeu o tamanho máximo');
+    return false;
+  }
+  
+  // Prevenir XSS
+  const perigoso = /<script|javascript:|onerror=|onclick=|onload=|iframe/gi;
+  if(perigoso.test(nome) || perigoso.test(email) || perigoso.test(empresa) || perigoso.test(mensagem)) {
+    alert('Entrada contém caracteres não permitidos');
+    return false;
+  }
+  
+  return true;
+}
+
+// Rate limiting
+const formSubmitTimes = [];
+const MAX_SUBMITS_PER_MINUTE = 5;
+const MINUTE_IN_MS = 60000;
+
+function verificarRateLimit() {
+  const now = Date.now();
+  formSubmitTimes.length = formSubmitTimes.filter(time => now - time < MINUTE_IN_MS).length;
+  
+  const filtered = formSubmitTimes.filter(time => now - time < MINUTE_IN_MS);
+  if(filtered.length >= MAX_SUBMITS_PER_MINUTE) {
+    alert('Limite de envios atingido. Aguarde 1 minuto.');
+    return false;
+  }
+  
+  formSubmitTimes.push(now);
+  return true;
+}
+</script>
 </head>
 <body>
 <div class="pagina">
@@ -439,7 +496,6 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
 <footer>
   <div class="wrap rodape">
     <span>JDE Tecnologia · Consultoria em desenvolvimento e integração de sistemas</span>
-    <span>Londrina, PR</span>
   </div>
 </footer>
 
@@ -494,6 +550,11 @@ document.getElementById('tema').addEventListener('click', function(){
 
 document.getElementById('formulario-contato').addEventListener('submit', function(e){
   e.preventDefault();
+  
+  // Validações de segurança
+  if(!validarFormulario()) return;
+  if(!verificarRateLimit()) return;
+  
   var formData = new FormData(this);
   fetch(this.action, {method: 'POST', body: formData, headers: {'Accept': 'application/json'}})
   .then(response => {
