@@ -558,6 +558,16 @@ document.getElementById('tema').addEventListener('click', function(){
 });
 // Removido: modal agora não fecha ao clicar no fundo (backdrop)
 
+
+});
+function abrirFormularioLimpo(){
+  document.getElementById('formulario-contato').reset();
+  document.getElementById('nome').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('empresa').value = '';
+  document.getElementById('mensagem').value = '';
+  document.getElementById('modal-contato').classList.add('aberto');
+}
 document.getElementById('formulario-contato').addEventListener('submit', function(e){
   e.preventDefault();
   console.log('📋 Form submit iniciado');
@@ -567,9 +577,8 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
     console.error('❌ Bloqueado por validação de formulário');
     return;
   }
-  console.log('✓ Validações passaram!');
   
-  // Obter token do reCAPTCHA
+  // Obter token reCAPTCHA
   var recaptchaToken = grecaptcha.getResponse();
   console.log('Token reCAPTCHA:', recaptchaToken ? '✓ Obtido' : '❌ Vazio');
   
@@ -578,15 +587,23 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
     return;
   }
   
-  console.log('✓ Enviando para Formspree...');
-  var formData = new FormData(this);
-  formData.append('g-recaptcha-response', recaptchaToken);
+  console.log('✓ Enviando formulário...');
   
-  fetch(this.action, {method: 'POST', body: formData, headers: {'Accept': 'application/json'}})
+  // Preencher o campo hidden com o token
+  document.querySelector('[name="g-recaptcha-response"]').value = recaptchaToken;
+  
+  // Criar FormData e enviar via fetch mais simples
+  var form = this;
+  var formData = new FormData(form);
+  
+  fetch(form.action, {
+    method: 'POST',
+    body: formData
+  })
   .then(response => {
-    console.log('Resposta Formspree:', response.status);
-    if(response.ok){
-      console.log('✓ Enviado com sucesso!');
+    console.log('Resposta:', response.status);
+    if(response.status === 200 || response.status === 201) {
+      console.log('✓ Sucesso!');
       document.getElementById('formulario-contato').style.display = 'none';
       document.querySelector('.form-sucesso').classList.add('ativo');
       setTimeout(function(){
@@ -597,23 +614,18 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
         grecaptcha.reset();
       }, 2500);
     } else {
-      console.error('✗ Erro na resposta:', response.status);
-      alert('Erro ao enviar. Tente novamente.');
+      console.error('Erro:', response.status);
+      return response.json().then(data => {
+        console.error('Erro do servidor:', data);
+        alert('Erro ao enviar. Status: ' + response.status);
+      });
     }
   })
   .catch(error => {
     console.error('Erro de conexão:', error);
-    alert('Erro ao enviar a mensagem.');
+    alert('Erro ao conectar com o servidor.');
   });
 });
-function abrirFormularioLimpo(){
-  document.getElementById('formulario-contato').reset();
-  document.getElementById('nome').value = '';
-  document.getElementById('email').value = '';
-  document.getElementById('empresa').value = '';
-  document.getElementById('mensagem').value = '';
-  document.getElementById('modal-contato').classList.add('aberto');
-}
 
 </script>
 
