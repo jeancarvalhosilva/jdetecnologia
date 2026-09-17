@@ -38,160 +38,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFCHZHEJ7S"></script>
-<script>
-// Tema
-(function(){
-  let t = localStorage.getItem('jde-tema');
-  if(t !== 'dark' && t !== 'light'){
-    t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-  document.documentElement.setAttribute('data-tema', t);
-})();
 
-// Validar formulário
-function validarFormulario() {
-  const nome = document.getElementById('nome').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const empresa = document.getElementById('empresa').value.trim();
-  const mensagem = document.getElementById('mensagem').value.trim();
-  
-  if(!nome || !email || !mensagem) {
-    alert('Preencha todos os campos obrigatórios');
-    return false;
-  }
-  
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if(!emailRegex.test(email)) {
-    alert('E-mail inválido');
-    return false;
-  }
-  
-  if(nome.length > 100 || empresa.length > 150 || mensagem.length > 2000) {
-    alert('Algum campo excedeu o tamanho máximo');
-    return false;
-  }
-  
-  const perigoso = /<script|javascript:|onerror=|onclick=|onload=|iframe/gi;
-  if(perigoso.test(nome) || perigoso.test(email) || perigoso.test(empresa) || perigoso.test(mensagem)) {
-    alert('Entrada contém caracteres não permitidos');
-    return false;
-  }
-  
-  return true;
-}
 
-// Abrir formulário
-function abrirFormularioLimpo(){
-  document.getElementById('formulario-contato').reset();
-  document.getElementById('nome').value = '';
-  document.getElementById('email').value = '';
-  document.getElementById('empresa').value = '';
-  document.getElementById('mensagem').value = '';
-  document.getElementById('modal-contato').classList.add('aberto');
-}
-
-// Evento submit
-document.getElementById('formulario-contato').addEventListener('submit', function(e){
-  e.preventDefault();
-  
-  if(!validarFormulario()) return;
-  
-  var formData = new FormData(this);
-  fetch(this.action, {method: 'POST', body: formData})
-    .then(r => {
-      if(r.ok) {
-        document.getElementById('formulario-contato').style.display = 'none';
-        document.querySelector('.form-sucesso').classList.add('ativo');
-        setTimeout(() => {
-          document.getElementById('modal-contato').classList.remove('aberto');
-          document.getElementById('formulario-contato').style.display = 'block';
-          document.querySelector('.form-sucesso').classList.remove('ativo');
-          document.getElementById('formulario-contato').reset();
-        }, 2500);
-      } else {
-        alert('Erro ao enviar: ' + r.status);
-      }
-    })
-    .catch(e => alert('Erro de conexão'));
-});
-</script>
-<script>
-// Tema
-(function(){
-  let t = localStorage.getItem('jde-tema');
-  if(t !== 'dark' && t !== 'light'){
-    t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-  document.documentElement.setAttribute('data-tema', t);
-})();
-
-// Validar formulário
-function validarFormulario() {
-  const nome = document.getElementById('nome').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const empresa = document.getElementById('empresa').value.trim();
-  const mensagem = document.getElementById('mensagem').value.trim();
-  
-  if(!nome || !email || !mensagem) {
-    alert('Preencha todos os campos obrigatórios');
-    return false;
-  }
-  
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if(!emailRegex.test(email)) {
-    alert('E-mail inválido');
-    return false;
-  }
-  
-  if(nome.length > 100 || empresa.length > 150 || mensagem.length > 2000) {
-    alert('Algum campo excedeu o tamanho máximo');
-    return false;
-  }
-  
-  const perigoso = /<script|javascript:|onerror=|onclick=|onload=|iframe/gi;
-  if(perigoso.test(nome) || perigoso.test(email) || perigoso.test(empresa) || perigoso.test(mensagem)) {
-    alert('Entrada contém caracteres não permitidos');
-    return false;
-  }
-  
-  return true;
-}
-
-// Abrir formulário
-function abrirFormularioLimpo(){
-  document.getElementById('formulario-contato').reset();
-  document.getElementById('nome').value = '';
-  document.getElementById('email').value = '';
-  document.getElementById('empresa').value = '';
-  document.getElementById('mensagem').value = '';
-  document.getElementById('modal-contato').classList.add('aberto');
-}
-
-// Evento submit
-document.getElementById('formulario-contato').addEventListener('submit', function(e){
-  e.preventDefault();
-  
-  if(!validarFormulario()) return;
-  
-  var formData = new FormData(this);
-  fetch(this.action, {method: 'POST', body: formData})
-    .then(r => {
-      if(r.ok) {
-        document.getElementById('formulario-contato').style.display = 'none';
-        document.querySelector('.form-sucesso').classList.add('ativo');
-        setTimeout(() => {
-          document.getElementById('modal-contato').classList.remove('aberto');
-          document.getElementById('formulario-contato').style.display = 'block';
-          document.querySelector('.form-sucesso').classList.remove('ativo');
-          document.getElementById('formulario-contato').reset();
-        }, 2500);
-      } else {
-        alert('Erro ao enviar: ' + r.status);
-      }
-    })
-    .catch(e => alert('Erro de conexão'));
-});
-</script>
 <style>
 :root{
   --fundo:#FFFFFF;
@@ -416,8 +264,8 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
 </script>
 
 
+
 <script>
-// Tema
 (function(){
   let t = localStorage.getItem('jde-tema');
   if(t !== 'dark' && t !== 'light'){
@@ -426,7 +274,13 @@ footer{border-top:1px solid var(--linha);padding:44px 0 56px}
   document.documentElement.setAttribute('data-tema', t);
 })();
 
-// Validar formulário
+document.getElementById('tema').addEventListener('click', function(){
+  var raiz = document.documentElement;
+  var novo = raiz.getAttribute('data-tema') === 'dark' ? 'light' : 'dark';
+  raiz.setAttribute('data-tema', novo);
+  try{ localStorage.setItem('jde-tema', novo); }catch(e){}
+});
+
 function validarFormulario() {
   const nome = document.getElementById('nome').value.trim();
   const email = document.getElementById('email').value.trim();
@@ -458,7 +312,6 @@ function validarFormulario() {
   return true;
 }
 
-// Abrir formulário
 function abrirFormularioLimpo(){
   document.getElementById('formulario-contato').reset();
   document.getElementById('nome').value = '';
@@ -468,16 +321,19 @@ function abrirFormularioLimpo(){
   document.getElementById('modal-contato').classList.add('aberto');
 }
 
-// Evento submit
 document.getElementById('formulario-contato').addEventListener('submit', function(e){
   e.preventDefault();
   
   if(!validarFormulario()) return;
   
+  console.log('Enviando para:', this.action);
   var formData = new FormData(this);
+  
   fetch(this.action, {method: 'POST', body: formData})
     .then(r => {
+      console.log('Resposta:', r.status, r.statusText);
       if(r.ok) {
+        console.log('Sucesso! Mensagem enviada.');
         document.getElementById('formulario-contato').style.display = 'none';
         document.querySelector('.form-sucesso').classList.add('ativo');
         setTimeout(() => {
@@ -487,13 +343,16 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
           document.getElementById('formulario-contato').reset();
         }, 2500);
       } else {
+        console.error('Erro:', r.status);
         alert('Erro ao enviar: ' + r.status);
       }
     })
-    .catch(e => alert('Erro de conexão'));
+    .catch(e => {
+      console.error('Erro de conexão:', e);
+      alert('Erro de conexão');
+    });
 });
-</script>
-</head>
+</script></head>
 <body>
 <div class="pagina">
 
@@ -698,83 +557,7 @@ document.getElementById('formulario-contato').addEventListener('submit', functio
 </div>
 
 
-<script>
-// Tema
-(function(){
-  let t = localStorage.getItem('jde-tema');
-  if(t !== 'dark' && t !== 'light'){
-    t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-  document.documentElement.setAttribute('data-tema', t);
-})();
 
-// Validar formulário
-function validarFormulario() {
-  const nome = document.getElementById('nome').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const empresa = document.getElementById('empresa').value.trim();
-  const mensagem = document.getElementById('mensagem').value.trim();
-  
-  if(!nome || !email || !mensagem) {
-    alert('Preencha todos os campos obrigatórios');
-    return false;
-  }
-  
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if(!emailRegex.test(email)) {
-    alert('E-mail inválido');
-    return false;
-  }
-  
-  if(nome.length > 100 || empresa.length > 150 || mensagem.length > 2000) {
-    alert('Algum campo excedeu o tamanho máximo');
-    return false;
-  }
-  
-  const perigoso = /<script|javascript:|onerror=|onclick=|onload=|iframe/gi;
-  if(perigoso.test(nome) || perigoso.test(email) || perigoso.test(empresa) || perigoso.test(mensagem)) {
-    alert('Entrada contém caracteres não permitidos');
-    return false;
-  }
-  
-  return true;
-}
-
-// Abrir formulário
-function abrirFormularioLimpo(){
-  document.getElementById('formulario-contato').reset();
-  document.getElementById('nome').value = '';
-  document.getElementById('email').value = '';
-  document.getElementById('empresa').value = '';
-  document.getElementById('mensagem').value = '';
-  document.getElementById('modal-contato').classList.add('aberto');
-}
-
-// Evento submit
-document.getElementById('formulario-contato').addEventListener('submit', function(e){
-  e.preventDefault();
-  
-  if(!validarFormulario()) return;
-  
-  var formData = new FormData(this);
-  fetch(this.action, {method: 'POST', body: formData})
-    .then(r => {
-      if(r.ok) {
-        document.getElementById('formulario-contato').style.display = 'none';
-        document.querySelector('.form-sucesso').classList.add('ativo');
-        setTimeout(() => {
-          document.getElementById('modal-contato').classList.remove('aberto');
-          document.getElementById('formulario-contato').style.display = 'block';
-          document.querySelector('.form-sucesso').classList.remove('ativo');
-          document.getElementById('formulario-contato').reset();
-        }, 2500);
-      } else {
-        alert('Erro ao enviar: ' + r.status);
-      }
-    })
-    .catch(e => alert('Erro de conexão'));
-});
-</script>
 
 </body>
 </html>
