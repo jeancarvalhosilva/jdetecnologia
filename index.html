@@ -568,65 +568,42 @@ function abrirFormularioLimpo(){
   document.getElementById('mensagem').value = '';
   document.getElementById('modal-contato').classList.add('aberto');
 }
+
+
 document.getElementById('formulario-contato').addEventListener('submit', function(e){
   e.preventDefault();
-  console.log('📋 Form submit iniciado');
   
-  // Validações de segurança
-  if(!validarFormulario()) {
-    console.error('❌ Bloqueado por validação de formulário');
-    return;
-  }
+  // Validação simples
+  if(!validarFormulario()) return;
   
   // Obter token reCAPTCHA
   var recaptchaToken = grecaptcha.getResponse();
-  console.log('Token reCAPTCHA:', recaptchaToken ? '✓ Obtido' : '❌ Vazio');
-  
   if(!recaptchaToken) {
-    alert('Marque a caixa "Não sou um robô" para continuar');
+    alert('Marque o reCAPTCHA');
     return;
   }
   
-  console.log('✓ Enviando formulário...');
-  
-  // Preencher o campo hidden com o token
+  // Preencher token no campo hidden
   document.querySelector('[name="g-recaptcha-response"]').value = recaptchaToken;
   
-  // Criar FormData e enviar via fetch mais simples
-  var form = this;
-  var formData = new FormData(form);
-  
-  fetch(form.action, {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => {
-    console.log('Resposta:', response.status);
-    if(response.status === 200 || response.status === 201) {
-      console.log('✓ Sucesso!');
+  // Enviar
+  var formData = new FormData(this);
+  fetch(this.action, {method: 'POST', body: formData})
+  .then(r => {
+    if(r.ok) {
       document.getElementById('formulario-contato').style.display = 'none';
       document.querySelector('.form-sucesso').classList.add('ativo');
-      setTimeout(function(){
+      setTimeout(() => {
         document.getElementById('modal-contato').classList.remove('aberto');
         document.getElementById('formulario-contato').style.display = 'block';
         document.querySelector('.form-sucesso').classList.remove('ativo');
         document.getElementById('formulario-contato').reset();
         grecaptcha.reset();
       }, 2500);
-    } else {
-      console.error('Erro:', response.status);
-      return response.json().then(data => {
-        console.error('Erro do servidor:', data);
-        alert('Erro ao enviar. Status: ' + response.status);
-      });
     }
   })
-  .catch(error => {
-    console.error('Erro de conexão:', error);
-    alert('Erro ao conectar com o servidor.');
-  });
+  .catch(e => alert('Erro ao enviar'));
 });
-
 </script>
 
 </body>
